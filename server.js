@@ -2,14 +2,14 @@
 var express = require('express');
 var app = express();
 var mysql = require("mysql");
-var connection = mysql.createConnection({
- host     : process.env.DB_HOST || '192.168.55.7',
- user     : process.env.DB_USER || 'root',
- password : process.env.DB_PASS || 'root',
- database : process.env.DB_NAME || 'movie_db'
-});
+// var connection = mysql.createConnection({
+//  host     : process.env.DB_HOST || '192.168.55.7',
+//  user     : process.env.DB_USER || 'root',
+//  password : process.env.DB_PASS || 'root',
+//  database : process.env.DB_NAME || 'movie_db'
+// });
 
-connection.connect();
+// connection.connect();
 
 //function getMovies(callback) {    
 //        connection.query("SELECT * FROM movie_db.movies",
@@ -26,19 +26,32 @@ app.get('/', function(req, res){
 })
 
 // Implement the movies API endpoint
-app.get('/movies', function(req, res){
-  var movies = [
-    {title : 'Suicide Squad', release: '2016', score: 8, reviewer: 'Robert Smith', publication : 'The Daily Reviewer'},    
-    {title : 'Batman vs. Superman', release : '2016', score: 6, reviewer: 'Chris Harris', publication : 'International Movie Critic'},
-    {title : 'Captain America: Civil War', release: '2016', score: 9, reviewer: 'Janet Garcia', publication : 'MoviesNow'},
-    {title : 'Deadpool', release: '2016', score: 9, reviewer: 'Andrew West', publication : 'MyNextReview'},
-    {title : 'Avengers: Age of Ultron', release : '2015', score: 7, reviewer: 'Mindy Lee', publication: 'Movies n\' Games'},
-    {title : 'Ant-Man', release: '2015', score: 8, reviewer: 'Martin Thomas', publication : 'TheOne'},
-    {title : 'Guardians of the Galaxy', release : '2014', score: 10, reviewer: 'Anthony Miller', publication : 'ComicBookHero.com'},
-  ]
+// app.get('/movies', function(req, res){
+//   var movies = [
+//     {title : 'Suicide Squad', release: '2016', score: 8, reviewer: 'Robert Smith', publication : 'The Daily Reviewer'},    
+//     {title : 'Batman vs. Superman', release : '2016', score: 6, reviewer: 'Chris Harris', publication : 'International Movie Critic'},
+//     {title : 'Captain America: Civil War', release: '2016', score: 9, reviewer: 'Janet Garcia', publication : 'MoviesNow'},
+//     {title : 'Deadpool', release: '2016', score: 9, reviewer: 'Andrew West', publication : 'MyNextReview'},
+//     {title : 'Avengers: Age of Ultron', release : '2015', score: 7, reviewer: 'Mindy Lee', publication: 'Movies n\' Games'},
+//     {title : 'Ant-Man', release: '2015', score: 8, reviewer: 'Martin Thomas', publication : 'TheOne'},
+//     {title : 'Guardians of the Galaxy', release : '2014', score: 10, reviewer: 'Anthony Miller', publication : 'ComicBookHero.com'},
+//   ]
 
-  res.json(movies);
-})
+//   res.json(movies);
+// })
+
+// app.get('/movies', function(req, res){
+//   var movies  = [];
+//   connection.connect(function(err) {
+//     if (err) throw err;
+//     //Select all moviereview and return the result object:
+//     connection.query("SELECT * FROM moviereview", function (err, result, fields) {
+//       if (err) throw err;
+//         movies = result;
+//     });
+//   });
+//   res.json(movies);
+// })
 
 //app.get('/', function(req, res, next) {   
     //now you can call the get-driver, passing a callback function

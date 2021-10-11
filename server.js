@@ -70,12 +70,14 @@ app.get('/reviewers', function(req, res){
 //   res.json(publications);
 // })
 
-// Implement the publications API endpoint - db request
+// Implement the publications API endpoint - db
 app.get('/publications', function(req, res){
-  connection.query("SELECT * FROM movie_db.publication",
-  function (err, res) {
-      callback(err, res); 
-  }); 
+  var publications = [];
+  connection.query("SELECT * FROM publication", function (err, result, fields) {
+    if (err) throw err;
+    publications = result;
+  });
+  res.json(publications);
 })
 
 // Implement the pending reviews API endpoint

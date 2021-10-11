@@ -76,8 +76,8 @@ app.get('/publications', function(req, res){
   connection.query("SELECT * FROM publication", function (err, result, fields) {
     if (err) throw err;
     publications = result;
+    res.json(publications);
   });
-  res.json(publications);
 })
 
 // Implement the pending reviews API endpoint

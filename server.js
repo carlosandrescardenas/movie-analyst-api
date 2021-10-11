@@ -11,66 +11,28 @@ var connection = mysql.createConnection({
 
 connection.connect();
 
-// function getMovies(callback) {    
-//        connection.query("SELECT * FROM movie_db.movies",
-//            function (err, rows) {
-//                callback(err, rows); 
-//            }
-//        );    
-// }
-
-//Testing endpoint
-app.get('/', function(req, res){
-  var response = [{response : 'hello'}, {code : '200'}]
-  res.json(response);
-})
-
-//Implement the movies API endpoint
+// Implement the publications API endpoint - db -moviereview
 app.get('/movies', function(req, res){
-  var movies = [
-    {title : 'Suicide Squad', release: '2016', score: 8, reviewer: 'Robert Smith', publication : 'The Daily Reviewer'},    
-    {title : 'Batman vs. Superman', release : '2016', score: 6, reviewer: 'Chris Harris', publication : 'International Movie Critic'},
-    {title : 'Captain America: Civil War', release: '2016', score: 9, reviewer: 'Janet Garcia', publication : 'MoviesNow'},
-    {title : 'Deadpool', release: '2016', score: 9, reviewer: 'Andrew West', publication : 'MyNextReview'},
-    {title : 'Avengers: Age of Ultron', release : '2015', score: 7, reviewer: 'Mindy Lee', publication: 'Movies n\' Games'},
-    {title : 'Ant-Man', release: '2015', score: 8, reviewer: 'Martin Thomas', publication : 'TheOne'},
-    {title : 'Guardians of the Galaxy', release : '2014', score: 10, reviewer: 'Anthony Miller', publication : 'ComicBookHero.com'},
-  ]
-
-  res.json(movies);
+  var movies = [];
+  connection.query("select mr.title, mr.release, mr.score, mr.reviewer, r.publication from movie_db.moviereview as mr inner join reviewer r on mr.reviewer = r.name", 
+  function (err, result, fields) {
+    if (err) throw err;
+    movies = result;
+    res.json(movies);
+  });
 })
 
-// Implement the reviewers API endpoint
+// Implement the publications API endpoint - db -review
 app.get('/reviewers', function(req, res){
-  var authors = [
-    {name : 'Robert Smith', publication : 'The Daily Reviewer', avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/angelcolberg/128.jpg'},
-    {name: 'Chris Harris', publication : 'International Movie Critic', avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/bungiwan/128.jpg'},
-    {name: 'Janet Garcia', publication : 'MoviesNow', avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/grrr_nl/128.jpg'},
-    {name: 'Andrew West', publication : 'MyNextReview', avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/d00maz/128.jpg'},
-    {name: 'Mindy Lee', publication: 'Movies n\' Games', avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/laurengray/128.jpg'},
-    {name: 'Martin Thomas', publication : 'TheOne', avatar : 'https://s3.amazonaws.com/uifaces/faces/twitter/karsh/128.jpg'},
-    {name: 'Anthony Miller', publication : 'ComicBookHero.com', avatar : 'https://s3.amazonaws.com/uifaces/faces/twitter/9lessons/128.jpg'}
-  ];
-
-  res.json(authors);
+  var authors = [];
+  connection.query("SELECT * FROM reviewer", function (err, result, fields) {
+    if (err) throw err;
+    authors = result;
+    res.json(authors);
+  });
 })
 
-// Implement the publications API endpoint
-// app.get('/publications', function(req, res){
-//   var publications = [
-//     {name : 'The Daily Reviewer', avatar: 'glyphicon-eye-open'},
-//     {name : 'International Movie Critic', avatar: 'glyphicon-fire'},
-//     {name : 'MoviesNow', avatar: 'glyphicon-time'},
-//     {name : 'MyNextReview', avatar: 'glyphicon-record'},
-//     {name : 'Movies n\' Games', avatar: 'glyphicon-heart-empty'},
-//     {name : 'TheOne', avatar : 'glyphicon-globe'},
-//     {name : 'ComicBookHero.com', avatar : 'glyphicon-flash'}
-//   ];
-
-//   res.json(publications);
-// })
-
-// Implement the publications API endpoint - db
+// Implement the publications API endpoint - db - publication
 app.get('/publications', function(req, res){
   var publications = [];
   connection.query("SELECT * FROM publication", function (err, result, fields) {
@@ -78,6 +40,12 @@ app.get('/publications', function(req, res){
     publications = result;
     res.json(publications);
   });
+})
+
+//Testing endpoint
+app.get('/', function(req, res){
+  var response = [{response : 'hello'}, {code : '200'}]
+  res.json(response);
 })
 
 // Implement the pending reviews API endpoint

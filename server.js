@@ -3,10 +3,10 @@ var express = require('express');
 var app = express();
 var mysql = require("mysql");
 var connection = mysql.createConnection({
- host     : process.env.DB_HOST,
- user     : process.env.DB_USER,
- password : process.env.DB_PASS,
- database : process.env.DB_NAME
+  host     : process.env.DB_HOST || '10.1.80.218',
+  user     : process.env.DB_USER || 'admin',
+  password : process.env.DB_PASS || 'rampuptest2021',
+  database : process.env.DB_NAME || 'movie_db'
 });
 
 connection.connect();

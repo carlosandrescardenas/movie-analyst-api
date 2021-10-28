@@ -1,6 +1,4 @@
-DROP DATABASE IF EXISTS movie_db;
 CREATE DATABASE movie_db;
-USE movie_db;
 GO
 
 CREATE TABLE movie_db.publication (name VARCHAR(255) PRIMARY KEY, avatar VARCHAR(21));

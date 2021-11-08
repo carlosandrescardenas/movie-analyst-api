@@ -3,7 +3,7 @@ var express = require('express');
 var app = express();
 var mysql = require("mysql");
 var connection = mysql.createConnection({
-  host     : process.env.DB_HOST || 'moviedb.cx02uzagq3fl.us-west-1.rds.amazonaws.com',
+  host     : process.env.DB_HOST,
   user     : process.env.DB_USER || 'admin',
   password : process.env.DB_PASS || 'rampuptest2021',
   database : process.env.DB_NAME || 'movie_db'
